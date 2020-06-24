@@ -3,37 +3,38 @@ from ib_insync import Future
 from gulo.get_hist_data.get_hist_ticks import get_hist_ticks
 from gulo.utils.utils import start_ib
 
-# contracts = ib.reqContractDetails(Future("MNQ", exchange="GLOBEX", includeExpired=True))
-clientId = 1
+# contracts = ib.reqContractDetails(Future("MES", exchange="GLOBEX", includeExpired=True))
+client_id = 1
+port = 4002
 timeout = 15
 
-ib = start_ib(clientId=clientId, timeout=timeout)
+ib = start_ib(client_id=client_id, port=port, timeout=timeout)
 
 contract = Future(
-    conId=362702255,
-    symbol="MNQ",
-    lastTradeDateOrContractMonth="20200320",
+    conId=371749771,
+    symbol="MES",
+    lastTradeDateOrContractMonth="20200918",
+    multiplier="5",
     exchange="GLOBEX",
+    currency="USD",
+    localSymbol="MESU0",
+    tradingClass="MES",
 )
-startDateTime: datetime.datetime = datetime.datetime(2019, 12, 20).replace(
+startDateTime: datetime.datetime = datetime.datetime(2020, 6, 18).replace(
     tzinfo=datetime.timezone.utc
 )
-# contract = Future(
-#     conId=362703243,
-#     symbol="MNQ",
-#     lastTradeDateOrContractMonth="20191220",
-#     exchange="GLOBEX",
-# )
-# contract = Future(
-#     conId=362703084,
-#     symbol="MNQ",
-#     lastTradeDateOrContractMonth="20190920",
-#     exchange="GLOBEX",
-# )
-# contract = Future(
-#     conId=362702815,
-#     symbol="MNQ",
-#     lastTradeDateOrContractMonth="20190621",
-#     exchange="GLOBEX",
-# )
-get_hist_ticks(ib, clientId, timeout, contract, startDateTime)
+# Future(conId=362698833, symbol='MES', lastTradeDateOrContractMonth='20200619', multiplier='5', exchange='GLOBEX', currency='USD', localSymbol='MESM0', tradingClass='MES')
+# Future(conId=362698381, symbol='MES', lastTradeDateOrContractMonth='20200320', multiplier='5', exchange='GLOBEX', currency='USD', localSymbol='MESH0', tradingClass='MES')
+# Future(conId=362699966, symbol='MES', lastTradeDateOrContractMonth='20191220', multiplier='5', exchange='GLOBEX', currency='USD', localSymbol='MESZ9', tradingClass='MES')
+# Future(conId=362699593, symbol='MES', lastTradeDateOrContractMonth='20190920', multiplier='5', exchange='GLOBEX', currency='USD', localSymbol='MESU9', tradingClass='MES')
+# Future(conId=362699310, symbol='MES', lastTradeDateOrContractMonth='20190621', multiplier='5', exchange='GLOBEX', currency='USD', localSymbol='MESM9', tradingClass='MES')
+
+
+get_hist_ticks(
+    ib=ib,
+    client_id=client_id,
+    port=port,
+    timeout=timeout,
+    contract=contract,
+    startDateTime=startDateTime,
+)
